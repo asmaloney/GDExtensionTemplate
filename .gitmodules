@@ -1,0 +1,6 @@
+[submodule "extern/rapidobj"]
+	path = extern/rapidobj
+	url = https://github.com/guybrush77/rapidobj.git
+[submodule "extern/godot-cpp"]
+	path = extern/godot-cpp
+	url = https://github.com/godotengine/godot-cpp.git

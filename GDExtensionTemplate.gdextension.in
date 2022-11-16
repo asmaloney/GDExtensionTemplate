@@ -1,0 +1,8 @@
+[configuration]
+
+entry_symbol = "GDExtensionInit"
+
+[libraries]
+
+macos.debug.x86_64 = "lib/Darwin-x86_64/lib${PROJECT_NAME}-d.dylib"
+macos.release.x86_64 = "lib/Darwin-x86_64/lib${PROJECT_NAME}.dylib"
