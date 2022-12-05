@@ -71,6 +71,7 @@ jobs:
           -B GDExtension-build
           -G "Ninja"
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          --install-prefix ${{ github.workspace }}/install
           .
 
       - name: Configure (Release)
@@ -82,7 +83,18 @@ jobs:
           -B GDExtension-build
           -G "Ninja"
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          --install-prefix ${{ github.workspace }}/install
           .
 
       - name: Build
         run: cmake --build GDExtension-build
+
+      - name: Install
+        run: cmake --install GDExtension-build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.event.repository.name }}
+          path: |
+            ${{ github.workspace }}/install/*

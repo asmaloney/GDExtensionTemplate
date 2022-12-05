@@ -11,8 +11,8 @@
 extern "C"
 {
    GDNativeBool GDN_EXPORT GDExtensionInit( const GDNativeInterface *p_interface,
-                                                 GDNativeExtensionClassLibraryPtr p_library,
-                                                 GDNativeInitialization *r_initialization )
+                                            GDNativeExtensionClassLibraryPtr p_library,
+                                            GDNativeInitialization *r_initialization )
    {
       godot::GDExtensionBinding::InitObject init_obj( p_interface, p_library, r_initialization );
 
