@@ -1,0 +1,88 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }} (${{ matrix.build_type }})
+    runs-on: ${{ matrix.config.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: ['Debug', 'Release']
+        config:
+          - { name: 'macOS Clang', os: macos-latest }
+          - { name: 'Ubuntu GCC', os: ubuntu-latest }
+          - { name: 'Windows MSVC', os: windows-latest }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Install Dependencies (macOS)
+        if: matrix.config.os == 'macos-latest'
+        run: |
+          brew install ninja
+
+      - name: Install Dependencies (Ubuntu)
+        if: matrix.config.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build
+
+      - name: Cache miniconda (Windows)
+        if: matrix.config.os == 'windows-latest'
+        uses: actions/cache@v3
+        env:
+          CACHE_NUMBER: 0 # Increase this value to reset cache if environment.yml has not changed
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/conda/environment.yml') }}
+
+      - name: Setup miniconda (Windows)
+        if: matrix.config.os == 'windows-latest'
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          channels: conda-forge
+          activate-environment: win-build-env
+          environment-file: .github/conda/environment.yml
+          use-only-tar-bz2: true # IMPORTANT: Needs to be set for caching to work properly
+
+      - name: Configure MSVC console (Windows)
+        if: matrix.config.os == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Set environment for MSVC (Windows)
+        if: matrix.config.os == 'windows-latest'
+        run: |
+          # Set these env vars so cmake picks the correct compiler
+          echo "CXX=cl.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "CC=cl.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Configure (Debug)
+        if: matrix.build_type == 'Debug'
+        run: >
+          mkdir GDExtension-build
+
+          cmake
+          -B GDExtension-build
+          -G "Ninja"
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          .
+
+      - name: Configure (Release)
+        if: matrix.build_type == 'Release'
+        run: >
+          mkdir GDExtension-build
+
+          cmake
+          -B GDExtension-build
+          -G "Ninja"
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          .
+
+      - name: Build
+        run: cmake --build GDExtension-build

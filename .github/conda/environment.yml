@@ -1,0 +1,3 @@
+name: win-build-env
+dependencies:
+  - ninja=1.11.0
