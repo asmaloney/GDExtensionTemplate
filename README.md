@@ -1,3 +1,5 @@
+[![GitHub](https://img.shields.io/github/license/asmaloney/GDExtensionTemplate)](LICENSE) ![Build](https://github.com/asmaloney/GDExtensionTemplate/actions/workflows/build.yml/badge.svg)
+
 # GDExtensionTemplate
 
 This project is a template meant as a starting point for creating new C++/CMake-based Godot 4 extensions. It is currently set up to work with **Godot 4.0 beta 7**.
