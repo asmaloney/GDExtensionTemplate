@@ -43,12 +43,15 @@ set( OUTPUT_DIR "${PROJECT_BINARY_DIR}/${PROJECT_NAME}/" )
 #   e.g. macos.release.x86_64 = "lib/Darwin-x86_64/libGDExtensionTemplate.dylib"
 set( LIB_DIR "lib/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}" )
 
+message( "Building ${PROJECT_NAME} for ${CMAKE_SYSTEM_NAME} on ${CMAKE_SYSTEM_PROCESSOR}")
+
 set_target_properties( ${PROJECT_NAME}
     PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN true
         DEBUG_POSTFIX "-d"
         POSITION_INDEPENDENT_CODE ON
+        RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR}/${LIB_DIR}"
         LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}/${LIB_DIR}"
 )
 
@@ -62,6 +65,8 @@ target_include_directories( ${PROJECT_NAME}
 # Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 install( TARGETS ${PROJECT_NAME}
     LIBRARY
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/${LIB_DIR}
+    RUNTIME
         DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/${LIB_DIR}
 )
 
