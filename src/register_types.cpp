@@ -10,6 +10,7 @@
 
 extern "C"
 {
+   // The name of this function must match the "entry_symbol" in templates/template.gdextension.in
    GDNativeBool GDN_EXPORT GDExtensionInit( const GDNativeInterface *p_interface,
                                             GDNativeExtensionClassLibraryPtr p_library,
                                             GDNativeInitialization *r_initialization )
