@@ -20,12 +20,12 @@ endif()
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" )
 
 # Add our gdextension template file to a source group for better display in IDEs
-set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/GDExtensionTemplate.gdextension.in )
+set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/templates/template.gdextension.in )
 source_group( "Extra Files" ${GD_EXTENSION_FILE_INPUT} )
 
 # Generate our project's .gdextension file from the template
 set( GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension )
-configure_file( ${GD_EXTENSION_FILE_INPUT} ${GD_EXTENSION_FILE} )
+configure_file( ${GD_EXTENSION_FILE_INPUT} ${PROJECT_NAME}/${GD_EXTENSION_FILE} )
 
 # Create our library
 add_library( ${PROJECT_NAME} SHARED ${GD_EXTENSION_FILE_INPUT} )
@@ -71,7 +71,7 @@ install( TARGETS ${PROJECT_NAME}
 )
 
 install(
-    FILES ${CMAKE_BINARY_DIR}/${GD_EXTENSION_FILE}
+    FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${GD_EXTENSION_FILE}
     DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 )
 
