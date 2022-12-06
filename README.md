@@ -25,7 +25,7 @@ To use this for your own project:
 Optional:
 
 - [contribute to the project](#how-to-contribute) (not just 💰!)
-- edit `GDExtensionTemplate.gdextension.in` to add/remove supported platform/architectures
+- edit `templates/template.gdextension.in` to add/remove supported platform/architectures
 - change `.clang-format` to fit your style
 - change the LICENSE
 
