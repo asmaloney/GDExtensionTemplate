@@ -6,6 +6,8 @@ This project is a template meant as a starting point for creating new C++/CMake-
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use scons, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template).
 
+**Note:** This project is not meant to be a dependency for your project. It is intended to be copied (not forked) and made into your own project. git itself doesn't provide a nice way to do this (as far as I can tell), but GitHub provides a green "Use this template" button beside the normal place you clone a repo. This should [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+
 There are a lot of little things to get right when starting a GDExtension project - naming, file location, etc.. The goal of this project is to lower the barrier to entry to building a GDExtension using CMake by making it easy to get started & easy to maintain.
 
 This template:
@@ -18,11 +20,13 @@ This template:
 - includes GitHub actions (CI) for building the extension on Linux (gcc), macOS (clang), and Windows (MSVC)
 - includes GitHub actions (CI) for checking code formatting using clang-format
 
+## How To Use
+
 To use this for your own project:
 
-- copy this repository
-- rename of the directory to the name of your extension
-- change `GDExtensionTemplate` in the `project` macro in CMakeLists.txt to the name of your extension
+- copy this repository (see note above about copy vs. clone/fork)
+- rename the directory to the name of your extension
+- change `GDExtensionTemplate` in the `project` macro in _CMakeLists.txt_ to the name of your extension
 - replace the example code in `src` with your own (**note:** if you change the entry symbol `GDExtensionInit` in _register_types.cpp_, you will need to update the `templates/template.gdextension.in` file)
 - replace this `README.md` with your own
 - remove/replace `.github/FUNDING.yml`
@@ -31,7 +35,7 @@ Optional:
 
 - [contribute to the project](#how-to-contribute) (not just 💰!)
 - edit `templates/template.gdextension.in` to add/remove supported platform/architectures
-- change `.clang-format` to fit your style
+- change `.clang-format` to fit your C++ style
 - change the LICENSE
 
 ## How To Contribute
