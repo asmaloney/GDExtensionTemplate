@@ -91,11 +91,6 @@ set_target_properties( godot-cpp
         CXX_VISIBILITY_PRESET hidden
 )
 
-target_include_directories( ${PROJECT_NAME}
-    PRIVATE
-        ${GODOT_HEADERS_DIR}
-)
-
 target_link_libraries( ${PROJECT_NAME}
     PRIVATE
         godot-cpp
