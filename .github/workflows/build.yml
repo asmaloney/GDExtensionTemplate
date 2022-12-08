@@ -62,8 +62,7 @@ jobs:
           echo "CXX=cl.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "CC=cl.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-      - name: Configure (Debug)
-        if: matrix.build_type == 'Debug'
+      - name: Configure
         run: >
           mkdir GDExtension-build
 
@@ -71,19 +70,7 @@ jobs:
           -B GDExtension-build
           -G "Ninja"
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          --install-prefix ${{ github.workspace }}/install
-          .
-
-      - name: Configure (Release)
-        if: matrix.build_type == 'Release'
-        run: >
-          mkdir GDExtension-build
-
-          cmake
-          -B GDExtension-build
-          -G "Ninja"
-          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          --install-prefix ${{ github.workspace }}/install
+          --install-prefix ${{ github.workspace }}/install-${{ matrix.build_type }}
           .
 
       - name: Build
@@ -92,9 +79,18 @@ jobs:
       - name: Install
         run: cmake --install GDExtension-build
 
-      - name: Upload artifact
+      - name: Upload artifact (Debug)
+        if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}
+          name: ${{ github.event.repository.name }}-Debug
           path: |
-            ${{ github.workspace }}/install/*
+            ${{ github.workspace }}/install-${{ matrix.build_type }}/*
+
+      - name: Upload artifact (Release)
+        if: matrix.build_type == 'Release'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.event.repository.name }}-Release
+          path: |
+            ${{ github.workspace }}/install-${{ matrix.build_type }}/*
