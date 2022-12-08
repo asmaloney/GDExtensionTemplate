@@ -2,39 +2,40 @@
 
 # GDExtensionTemplate
 
-This project is a template meant as a starting point for creating new C++/CMake-based Godot 4 extensions. It is currently set up to work with **Godot 4.0 beta 7**.
+This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 7**.
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use scons, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template).
 
-**Note:** This project is not meant to be a dependency for your project. It is intended to be copied (not forked) and made into your own project. git itself doesn't provide a nice way to do this (as far as I can tell), but GitHub provides a green "Use this template" button beside the normal place you clone a repo. This should [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+> **Note:** This project is not meant to be a dependency. It is intended to be copied (not forked) and made into your own project. Git itself doesn't provide a nice way to do this (as far as I can tell), but GitHub provides a **Use this template** button (beside where you clone a repo). This will [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) without all the history.
 
-There are a lot of little things to get right when starting a GDExtension project - naming, file location, etc.. The goal of this project is to lower the barrier to entry to building a GDExtension using CMake by making it easy to get started & easy to maintain.
-
-This template:
+This template project handles a lot of the details to set up a robust project:
 
 - includes [godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule and links it statically to your shared library
-- creates a `<project>.gdextension` file based on your project name
+- creates `<project>.gdextension` files based on your project name
 - uses [ccache](https://ccache.dev/) (if available) for faster rebuilds
-- provides a cmake target (`install`) to install the files with the correct structure to a given location (set `CMAKE_INSTALL_PREFIX`)
-- provides a cmake target (`clang-format`) for running `clang-format` on all the sources at once
+- provides a cmake target (`install`) to install all files with the correct structure to a location (`CMAKE_INSTALL_PREFIX`)
+- provides a cmake target (`clang-format`) for running `clang-format` on all sources
 - includes GitHub actions (CI) for building the extension on Linux (gcc), macOS (clang), and Windows (MSVC)
-- includes GitHub actions (CI) for checking code formatting using clang-format
+- includes GitHub actions (CI) for generating debug & release packages on each commit
+- includes GitHub actions (CI) for checking code formatting using `clang-format`
 
 ## How To Use
 
 To use this for your own project:
 
-- copy this repository (see note above about copy vs. clone/fork)
-- rename the directory to the name of your extension
+- _copy_ this repository (see note above about copy vs. clone/fork) and rename the directory to the name of your extension
 - change `GDExtensionTemplate` in the `project` macro in _CMakeLists.txt_ to the name of your extension
-- replace the example code in `src` with your own (**note:** if you change the entry symbol `GDExtensionInit` in _register_types.cpp_, you will need to update the `templates/template.gdextension.in` file)
+- replace the example code in `src` with your own
+  > **note:** if you change the entry symbol `GDExtensionInit` in _RegisterExtension.cpp_, you will need to update the `templates/*.gdextension.in` files
 - replace this `README.md` with your own
 - remove/replace `.github/FUNDING.yml`
 
 Optional:
 
-- [contribute to the project](#how-to-contribute) (not just 💰!)
-- edit `templates/template.gdextension.in` to add/remove supported platform/architectures
+- [contribute to the project](#how-to-contribute) (it's not just 💰!)
+- change the platforms/architectures you want to support
+  - edit the gdextension templates (`templates/*.gdextension.in`)
+  - change the GitHub workflows to build the right stuff
 - change `.clang-format` to fit your C++ style
 - change the LICENSE
 
