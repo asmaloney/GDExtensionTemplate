@@ -19,9 +19,12 @@ endif()
 # Add paths to modules
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" )
 
+# Get our gdextension input file name based on build type
+string( TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE )
+set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/templates/template.${BUILD_TYPE}.gdextension.in )
+
 # Add our gdextension template file to a source group for better display in IDEs
-set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/templates/template.gdextension.in )
-source_group( "Extra Files" ${GD_EXTENSION_FILE_INPUT} )
+source_group( "Extra Files" "${GD_EXTENSION_FILE_INPUT}" )
 
 # Generate our project's .gdextension file from the template
 set( GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension )
