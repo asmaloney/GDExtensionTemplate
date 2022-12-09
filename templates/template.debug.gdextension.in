@@ -5,5 +5,5 @@ entry_symbol = "GDExtensionInit"
 [libraries]
 
 linux.debug.x86_64 = "lib/Linux-x86_64/lib${PROJECT_NAME}-d.so"
-macos.debug.x86_64 = "lib/Darwin-x86_64/lib${PROJECT_NAME}-d.dylib"
+macos.debug = "lib/Darwin-Universal/lib${PROJECT_NAME}-d.dylib"
 windows.debug.x86_64 = "lib/Windows-AMD64/${PROJECT_NAME}-d.dll"

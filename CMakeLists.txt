@@ -2,6 +2,11 @@
 
 cmake_minimum_required( VERSION 3.22 )
 
+# Build universal lib on macOS
+if ( APPLE )
+    set( CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "" )
+endif()
+
 project( GDExtensionTemplate
     LANGUAGES
         CXX
@@ -41,12 +46,19 @@ target_compile_features( ${PROJECT_NAME}
 # OUTPUT_DIR is where we put the resulting library (in the build directory)
 set( OUTPUT_DIR "${PROJECT_BINARY_DIR}/${PROJECT_NAME}/" )
 
+# LIB_ARCH is the architecture being built. It is set to the build system's architecture.
+# For macOS, we build a universal library (both arm64 and x86_64).
+set( LIB_ARCH ${CMAKE_SYSTEM_PROCESSOR} )
+if ( APPLE )
+    set( LIB_ARCH "universal" )
+endif()
+
 # LIB_DIR is where the actual library ends up. This is used in both the build directory and the
 # install directory and needs to be consistent with the paths in the gdextension file.
-#   e.g. macos.release.x86_64 = "lib/Darwin-x86_64/libGDExtensionTemplate.dylib"
-set( LIB_DIR "lib/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}" )
+#   e.g. linux.release.x86_64 = "lib/Linux-x86_64/libGDExtensionTemplate.so"
+set( LIB_DIR "lib/${CMAKE_SYSTEM_NAME}-${LIB_ARCH}" )
 
-message( "Building ${PROJECT_NAME} for ${CMAKE_SYSTEM_NAME} on ${CMAKE_SYSTEM_PROCESSOR}")
+message( "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
 
 set_target_properties( ${PROJECT_NAME}
     PROPERTIES
@@ -104,6 +116,8 @@ target_link_libraries( ${PROJECT_NAME}
 find_program( CCACHE_PROGRAM ccache )
 
 if ( CCACHE_PROGRAM )
+    message( STATUS "Found ccache: ${CCACHE_PROGRAM}" )
+
     set_target_properties( ${PROJECT_NAME}
         PROPERTIES
             CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}"
