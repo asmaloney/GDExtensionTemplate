@@ -1,8 +1,8 @@
-[![GitHub](https://img.shields.io/github/license/asmaloney/GDExtensionTemplate)](LICENSE) ![Build](https://github.com/asmaloney/GDExtensionTemplate/actions/workflows/build.yml/badge.svg)
+[![GitHub](https://img.shields.io/github/license/asmaloney/GDExtensionTemplate)](LICENSE) ![Build](https://github.com/asmaloney/GDExtensionTemplate/actions/workflows/main.yml/badge.svg)
 
 # GDExtensionTemplate
 
-This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 7**.
+This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 8**.
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use scons, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template).
 
@@ -11,11 +11,12 @@ Since the majority of C++ open source projects use CMake, I wanted to offer an a
 This template project handles a lot of the details to set up a robust project:
 
 - includes [godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule and links it statically to your shared library
+- builds universal library (x86_64 and arm64) on macOS
 - creates `<project>.gdextension` files based on your project name
 - uses [ccache](https://ccache.dev/) (if available) for faster rebuilds
 - provides a cmake target (`install`) to install all files with the correct structure to a location (`CMAKE_INSTALL_PREFIX`)
 - provides a cmake target (`clang-format`) for running `clang-format` on all sources
-- includes GitHub actions (CI) for building the extension on Linux (gcc), macOS (clang), and Windows (MSVC)
+- includes GitHub actions (CI) for building the extension on **Linux x86_64** (gcc), **macOS universal** (clang), and **Windows x86_64** (MSVC)
 - includes GitHub actions (CI) for generating debug & release packages on each commit
 - includes GitHub actions (CI) for checking code formatting using `clang-format`
 
