@@ -24,6 +24,9 @@ endif()
 # Add paths to modules
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" )
 
+# Turn on link time optimization for everything
+set( CMAKE_INTERPROCEDURAL_OPTIMIZATION ON )
+
 # Get our gdextension input file name based on build type
 string( TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE )
 set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/templates/template.${BUILD_TYPE}.gdextension.in )
@@ -72,11 +75,6 @@ set_target_properties( ${PROJECT_NAME}
 
 add_subdirectory( src )
 
-target_include_directories( ${PROJECT_NAME}
-    PRIVATE
-        "${PROJECT_BINARY_DIR}/src"
-)
-
 # Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 install( TARGETS ${PROJECT_NAME}
     LIBRARY
@@ -112,18 +110,8 @@ target_link_libraries( ${PROJECT_NAME}
 )
 
 # ccache
-# https://crascit.com/2016/04/09/using-ccache-with-cmake/
-find_program( CCACHE_PROGRAM ccache )
-
-if ( CCACHE_PROGRAM )
-    message( STATUS "Found ccache: ${CCACHE_PROGRAM}" )
-
-    set_target_properties( ${PROJECT_NAME}
-        PROPERTIES
-            CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}"
-            C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}"
-        )
-endif()
+# Turns on ccache if found
+include( ccache )
 
 # Formatting
 # Adds a custom target to format all the code at once
