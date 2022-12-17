@@ -29,7 +29,6 @@ To use this for your own project:
 - replace the example code in `src` with your own
   > **note:** if you change the entry symbol `GDExtensionInit` in _RegisterExtension.cpp_, you will need to update the `templates/*.gdextension.in` files
 - replace this `README.md` with your own
-- remove/replace `.github/FUNDING.yml`
 
 Optional:
 
@@ -60,4 +59,4 @@ Note that I will not accept everything, but I welcome discussion. So if it's a b
 
 ### 💰 Financial
 
-Given that I'm an independent developer without funding, financial support is always appreciated. If you would like to support the project financially, you can use the **Sponsor** button at the top of the [GDExtensionTemplate](https://github.com/asmaloney/GDExtensionTemplate) repository page for one-off or recurring support.
+Given that I'm an independent developer without funding, financial support is always appreciated. If you would like to support the project financially, you can use the [sponsors page](https://github.com/sponsors/asmaloney) for one-off or recurring support. Thank you!
