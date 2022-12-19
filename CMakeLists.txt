@@ -61,7 +61,7 @@ endif()
 #   e.g. linux.release.x86_64 = "lib/Linux-x86_64/libGDExtensionTemplate.so"
 set( LIB_DIR "lib/${CMAKE_SYSTEM_NAME}-${LIB_ARCH}" )
 
-message( "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
+message( STATUS "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
 
 set_target_properties( ${PROJECT_NAME}
     PROPERTIES

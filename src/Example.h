@@ -10,14 +10,20 @@ class ExampleRef : public godot::RefCounted
 {
    GDCLASS( ExampleRef, RefCounted )
 
+private:
+   static int instance_count;
+   static int last_id;
+
+   int id;
+
 protected:
-   static void _bind_methods()
-   {
-   }
+   static void _bind_methods();
 
 public:
    ExampleRef();
-   ~ExampleRef() override;
+   ~ExampleRef();
+
+   int get_id();
 };
 
 class ExampleMin : public godot::Control
@@ -72,14 +78,16 @@ public:
    void simple_const_func() const;
    godot::String return_something( const godot::String &base );
    godot::Viewport *return_something_const() const;
+   godot::Ref<ExampleRef> return_empty_ref() const;
    ExampleRef *return_extended_ref() const;
    godot::Ref<ExampleRef> extended_ref_checks( godot::Ref<ExampleRef> p_ref ) const;
-   godot::Variant varargs_func( const godot::Variant **args, GDNativeInt arg_count,
-                                GDNativeCallError &error );
-   int varargs_func_nv( const godot::Variant **args, GDNativeInt arg_count,
-                        GDNativeCallError &error );
-   void varargs_func_void( const godot::Variant **args, GDNativeInt arg_count,
-                           GDNativeCallError &error );
+   godot::Variant varargs_func( const godot::Variant **args, GDExtensionInt arg_count,
+                                GDExtensionCallError &error );
+   int varargs_func_nv( const godot::Variant **args, GDExtensionInt arg_count,
+                        GDExtensionCallError &error );
+   void varargs_func_void( const godot::Variant **args, GDExtensionInt arg_count,
+                           GDExtensionCallError &error );
+
    void emit_custom_signal( const godot::String &name, int value );
    int def_args( int p_a = 100, int p_b = 200 );
 

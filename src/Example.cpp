@@ -7,14 +7,35 @@
 
 #include "Example.h"
 
+int ExampleRef::instance_count = 0;
+int ExampleRef::last_id = 0;
+
+int ExampleRef::get_id()
+{
+   return id;
+}
+
+void ExampleRef::_bind_methods()
+{
+   godot::ClassDB::bind_method( godot::D_METHOD( "get_id" ), &ExampleRef::get_id );
+}
+
 ExampleRef::ExampleRef()
 {
-   godot::UtilityFunctions::print( "ExampleRef created." );
+   id = ++last_id;
+   instance_count++;
+
+   godot::UtilityFunctions::print(
+      "ExampleRef ", godot::itos( id ),
+      " created, current instance count: ", godot::itos( instance_count ) );
 }
 
 ExampleRef::~ExampleRef()
 {
-   godot::UtilityFunctions::print( "ExampleRef destroyed." );
+   instance_count--;
+   godot::UtilityFunctions::print(
+      "ExampleRef ", godot::itos( id ),
+      " destroyed, current instance count: ", godot::itos( instance_count ) );
 }
 
 int Example::test_static( int p_a, int p_b )
@@ -130,9 +151,10 @@ void Example::_bind_methods()
    godot::ClassDB::bind_method( godot::D_METHOD( "return_something" ), &Example::return_something );
    godot::ClassDB::bind_method( godot::D_METHOD( "return_something_const" ),
                                 &Example::return_something_const );
+   godot::ClassDB::bind_method( godot::D_METHOD( "return_empty_ref" ), &Example::return_empty_ref );
    godot::ClassDB::bind_method( godot::D_METHOD( "return_extended_ref" ),
                                 &Example::return_extended_ref );
-   godot::ClassDB::bind_method( godot::D_METHOD( "extended_ref_checks" ),
+   godot::ClassDB::bind_method( godot::D_METHOD( "extended_ref_checks", "ref" ),
                                 &Example::extended_ref_checks );
 
    godot::ClassDB::bind_method( godot::D_METHOD( "test_array" ), &Example::test_array );
@@ -244,18 +266,25 @@ godot::Viewport *Example::return_something_const() const
    return nullptr;
 }
 
+godot::Ref<ExampleRef> Example::return_empty_ref() const
+{
+   godot::Ref<ExampleRef> ref;
+   return ref;
+}
+
 ExampleRef *Example::return_extended_ref() const
 {
+   // You can instance and return a refcounted object like this, but keep in mind that refcounting
+   // starts with the returned object and it will be destroyed when all references are destroyed. If
+   // you store this pointer you run the risk of having a pointer to a destroyed object.
    return memnew( ExampleRef() );
 }
 
 godot::Ref<ExampleRef> Example::extended_ref_checks( godot::Ref<ExampleRef> p_ref ) const
 {
+   // This is the preferred way of instancing and returning a refcounted object:
    godot::Ref<ExampleRef> ref;
    ref.instantiate();
-
-   // TODO the returned value gets dereferenced too early and return a null object otherwise.
-   ref->reference();
 
    godot::UtilityFunctions::print(
       "  Example ref checks called with value: ", p_ref->get_instance_id(),
@@ -264,8 +293,8 @@ godot::Ref<ExampleRef> Example::extended_ref_checks( godot::Ref<ExampleRef> p_re
    return ref;
 }
 
-godot::Variant Example::varargs_func( const godot::Variant ** /*args*/, GDNativeInt arg_count,
-                                      GDNativeCallError & /*error*/ )
+godot::Variant Example::varargs_func( const godot::Variant ** /*args*/, GDExtensionInt arg_count,
+                                      GDExtensionCallError & /*error*/ )
 {
    godot::UtilityFunctions::print( "  Varargs (Variant return) called with ",
                                    godot::String::num( static_cast<double>( arg_count ) ),
@@ -274,8 +303,8 @@ godot::Variant Example::varargs_func( const godot::Variant ** /*args*/, GDNative
    return arg_count;
 }
 
-int Example::varargs_func_nv( const godot::Variant ** /*args*/, GDNativeInt arg_count,
-                              GDNativeCallError & /*error*/ )
+int Example::varargs_func_nv( const godot::Variant ** /*args*/, GDExtensionInt arg_count,
+                              GDExtensionCallError & /*error*/ )
 {
    godot::UtilityFunctions::print( "  Varargs (int return) called with ",
                                    godot::String::num( static_cast<double>( arg_count ) ),
@@ -284,8 +313,8 @@ int Example::varargs_func_nv( const godot::Variant ** /*args*/, GDNativeInt arg_
    return 42;
 }
 
-void Example::varargs_func_void( const godot::Variant ** /*args*/, GDNativeInt arg_count,
-                                 GDNativeCallError & /*error*/ )
+void Example::varargs_func_void( const godot::Variant ** /*args*/, GDExtensionInt arg_count,
+                                 GDExtensionCallError & /*error*/ )
 {
    godot::UtilityFunctions::print( "  Varargs (no return) called with ",
                                    godot::String::num( static_cast<double>( arg_count ) ),
