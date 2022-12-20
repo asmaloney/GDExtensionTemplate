@@ -35,13 +35,13 @@ jobs:
 
       - name: Install Dependencies (macOS)
         if: matrix.config.os == 'macos-latest'
-        run: brew install ninja
+        run: brew install ccache ninja
 
       - name: Install Dependencies (Ubuntu)
         if: matrix.config.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ninja-build
+          sudo apt-get install -y ccache ninja-build
 
       - name: Dependencies Cache (Windows)
         if: matrix.config.os == 'windows-latest'
@@ -60,6 +60,12 @@ jobs:
           activate-environment: win-build-env
           environment-file: .github/conda/environment.yml
           use-only-tar-bz2: true # IMPORTANT: Needs to be set for caching to work properly
+
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: '10G'
+          key: ${{ matrix.config.os }}-${{ matrix.build_type }}
 
       - name: Configure MSVC console (Windows)
         if: matrix.config.os == 'windows-latest'

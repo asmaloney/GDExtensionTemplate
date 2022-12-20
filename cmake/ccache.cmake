@@ -6,9 +6,7 @@ find_program( CCACHE_PROGRAM ccache )
 if ( CCACHE_PROGRAM )
     message( STATUS "Using ccache: ${CCACHE_PROGRAM}" )
 
-    set_target_properties( ${PROJECT_NAME}
-        PROPERTIES
-            CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}"
-            C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}"
-        )
+    # Turn on ccache for all targets
+    set( CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}" )
+    set( CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}" )
 endif()
