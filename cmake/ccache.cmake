@@ -4,7 +4,7 @@
 find_program( CCACHE_PROGRAM ccache )
 
 if ( CCACHE_PROGRAM )
-    message( STATUS "Found ccache: ${CCACHE_PROGRAM}" )
+    message( STATUS "Using ccache: ${CCACHE_PROGRAM}" )
 
     set_target_properties( ${PROJECT_NAME}
         PROPERTIES
