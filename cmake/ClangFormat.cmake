@@ -3,6 +3,8 @@
 find_program( ${PROJECT_NAME}_CLANG_FORMAT_EXE NAMES clang-format )
 
 if ( ${PROJECT_NAME}_CLANG_FORMAT_EXE )
+    message( STATUS "Using clang-format: ${${PROJECT_NAME}_CLANG_FORMAT_EXE}" )
+
     get_target_property( _sources ${PROJECT_NAME} SOURCES )
 
     # Remove some files from the list
@@ -10,7 +12,7 @@ if ( ${PROJECT_NAME}_CLANG_FORMAT_EXE )
     list( FILTER _sources EXCLUDE REGEX ".*/*.gdextension.in" )
 
     add_custom_target( clang-format
-        COMMAND clang-format --style=file -i ${_sources}
+        COMMAND "${${PROJECT_NAME}_CLANG_FORMAT_EXE}" --style=file -i ${_sources}
         COMMENT "Running clang-format..."
         COMMAND_EXPAND_LISTS
         VERBATIM
