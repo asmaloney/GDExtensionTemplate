@@ -92,6 +92,14 @@ install(
     DESTINATION ${INSTALL_DIR}
 )
 
+# ccache
+# Turns on ccache if found
+include( ccache )
+
+# Formatting
+# Adds a custom target to format all the code at once
+include( ClangFormat )
+
 # godot-cpp
 # From here: https://github.com/godotengine/godot-cpp
 if ( NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/extern/godot-cpp/Makefile" )
@@ -112,11 +120,3 @@ target_link_libraries( ${PROJECT_NAME}
     PRIVATE
         godot-cpp
 )
-
-# ccache
-# Turns on ccache if found
-include( ccache )
-
-# Formatting
-# Adds a custom target to format all the code at once
-include( ClangFormat )
