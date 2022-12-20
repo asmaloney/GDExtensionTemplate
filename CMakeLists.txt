@@ -46,9 +46,6 @@ target_compile_features( ${PROJECT_NAME}
         cxx_std_17
 )
 
-# OUTPUT_DIR is where we put the resulting library (in the build directory)
-set( OUTPUT_DIR "${PROJECT_BINARY_DIR}/${PROJECT_NAME}/" )
-
 # LIB_ARCH is the architecture being built. It is set to the build system's architecture.
 # For macOS, we build a universal library (both arm64 and x86_64).
 set( LIB_ARCH ${CMAKE_SYSTEM_PROCESSOR} )
@@ -63,29 +60,36 @@ set( LIB_DIR "lib/${CMAKE_SYSTEM_NAME}-${LIB_ARCH}" )
 
 message( STATUS "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
 
+# BUILD_OUTPUT_DIR is where we put the resulting library (in the build directory)
+set( BUILD_OUTPUT_DIR "${PROJECT_BINARY_DIR}/${PROJECT_NAME}/" )
+
 set_target_properties( ${PROJECT_NAME}
     PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN true
         DEBUG_POSTFIX "-d"
-        POSITION_INDEPENDENT_CODE ON
-        RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR}/${LIB_DIR}"
-        LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}/${LIB_DIR}"
+        RUNTIME_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/${LIB_DIR}"
+        LIBRARY_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/${LIB_DIR}"
 )
 
 add_subdirectory( src )
 
 # Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
+set( INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
+
+message( STATUS "Install directory: ${INSTALL_DIR}")
+
 install( TARGETS ${PROJECT_NAME}
     LIBRARY
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/${LIB_DIR}
+        DESTINATION ${INSTALL_DIR}/${LIB_DIR}
     RUNTIME
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/${LIB_DIR}
+        DESTINATION ${INSTALL_DIR}/${LIB_DIR}
 )
 
+# Install the gdextension file from the build directory
 install(
-    FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${GD_EXTENSION_FILE}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
+    FILES ${BUILD_OUTPUT_DIR}/${GD_EXTENSION_FILE}
+    DESTINATION ${INSTALL_DIR}
 )
 
 # godot-cpp
@@ -101,7 +105,7 @@ add_subdirectory( extern/godot-cpp )
 
 set_target_properties( godot-cpp
     PROPERTIES
-        CXX_VISIBILITY_PRESET hidden
+        CXX_VISIBILITY_PRESET hidden    # visibility needs to be the same as the main library
 )
 
 target_link_libraries( ${PROJECT_NAME}
