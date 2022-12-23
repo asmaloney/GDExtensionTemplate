@@ -2,7 +2,7 @@
 
 # GDExtensionTemplate
 
-This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 9**.
+This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 10**.
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
@@ -11,7 +11,7 @@ Since the majority of C++ open source projects use CMake, I wanted to offer an a
 This template project handles a lot of the details to set up a robust project:
 
 - includes [godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule and links it statically to your shared library
-- uses [ccache](https://ccache.dev/) (if available) for faster rebuilds
+- uses [ccache](https://ccache.dev/) (if available) for faster local rebuilds
 - builds universal library (x86_64 and arm64) on macOS
 - creates `<project>.gdextension` files based on your project name
 - provides cmake targets:
@@ -20,6 +20,7 @@ This template project handles a lot of the details to set up a robust project:
 - includes GitHub actions (CI) for:
   - building the extension on **Linux x86_64** (gcc), **macOS universal** (clang), and **Windows x86_64** (MSVC)
   - generating debug & release packages on each commit
+  - using `ccache` to improve CI build times when available
   - checking code formatting using `clang-format`
 
 ## How To Use
@@ -61,7 +62,7 @@ If you run into something which doesn't work as expected, raising [an issue](htt
 
 I am happy to review any [pull requests](https://github.com/asmaloney/GDExtensionTemplate/pulls). Please keep them as short as possible. Each pull request should be atomic and only address one issue. This helps with the review process.
 
-Note that I will not accept everything, but I welcome discussion. So if it's a big change you are proposing, please raise it as [an issue](https://github.com/asmaloney/GDExtensionTemplate/issues) first for discussion.
+Note that I will not accept everything, but I welcome discussion. If you are proposing a big change, please raise it as [an issue](https://github.com/asmaloney/GDExtensionTemplate/issues) first for discussion.
 
 ### 💰 Financial
 
