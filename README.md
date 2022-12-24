@@ -2,11 +2,13 @@
 
 # GDExtensionTemplate
 
-This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using CMake. It is currently set up to work with **Godot 4.0 beta 10**.
+This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org). It is currently set up to work with **Godot 4.0 beta 10** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
 > **Note:** This project is not meant to be a dependency. It is intended to be copied (not forked) and made into your own project. Git itself doesn't provide a nice way to do this (as far as I can tell), but GitHub provides a **Use this template** button (beside where you clone a repo). This will [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) without all the history.
+
+## What This Template Includes
 
 This template project handles a lot of the details to set up a robust project:
 
@@ -28,15 +30,15 @@ This template project handles a lot of the details to set up a robust project:
 To use this for your own project:
 
 - _copy_ this repository (see note above about copy vs. clone/fork) and rename the directory to the name of your extension
-- change `GDExtensionTemplate` in the `project` macro in _CMakeLists.txt_ to the name of your extension
+- in _CMakeLists.txt_, change `GDExtensionTemplate` in the `project` macro to the name of your extension
 - replace the example code in `src` with your own
-  > **note:** if you change the entry symbol `GDExtensionInit` in _RegisterExtension.cpp_, you will need to update your `templates/*.gdextension.in` files
+  > **Note:** If you change the entry symbol (`GDExtensionInit`) in _RegisterExtension.cpp_, you will need to update your `templates/*.gdextension.in` files.
 - replace this `README.md` with your own
 
 Optional:
 
 - [contribute to the project](#how-to-contribute) (it's not just 💰!)
-- change the platforms/architectures you want to support
+- change the platforms/architectures you want to support:
   - edit the gdextension templates (`templates/*.gdextension.in`)
   - change the GitHub workflows to build the right stuff
 - change the `.clang-format` config file to fit your C++ style
@@ -48,7 +50,7 @@ These are some of the things you can do to contribute to the project:
 
 ### ✍ Write About The Project
 
-If you find the project useful, spread the word! Articles, mastodon posts, tweets, blog posts, instagram photos - whatever you're into. Please include a referral back to the repository page: https://github.com/asmaloney/GDExtensionTemplate
+If you find the project useful, spread the word! Articles, mastodon posts, tweets, blog posts, instagram photos - whatever you're into.
 
 ### ⭐️ Add a Star
 
