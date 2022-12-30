@@ -6,4 +6,4 @@ entry_symbol = "GDExtensionInit"
 
 linux.release.x86_64 = "lib/Linux-x86_64/lib${PROJECT_NAME}.so"
 macos.release = "lib/Darwin-universal/lib${PROJECT_NAME}.dylib"
-windows.release.x86_64 = "lib/Windows-AMD64/${PROJECT_NAME}.dll"
+windows.release.x86_64 = "lib/Windows-AMD64/${LIB_PREFIX}${PROJECT_NAME}.dll"

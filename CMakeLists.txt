@@ -27,19 +27,8 @@ list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" )
 # Turn on link time optimization for everything
 set( CMAKE_INTERPROCEDURAL_OPTIMIZATION ON )
 
-# Get our gdextension input file name based on build type
-string( TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE )
-set( GD_EXTENSION_FILE_INPUT ${CMAKE_CURRENT_SOURCE_DIR}/templates/template.${BUILD_TYPE}.gdextension.in )
-
-# Add our gdextension template file to a source group for better display in IDEs
-source_group( "Extra Files" "${GD_EXTENSION_FILE_INPUT}" )
-
-# Generate our project's .gdextension file from the template
-set( GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension )
-configure_file( ${GD_EXTENSION_FILE_INPUT} ${PROJECT_NAME}/${GD_EXTENSION_FILE} )
-
 # Create our library
-add_library( ${PROJECT_NAME} SHARED ${GD_EXTENSION_FILE_INPUT} )
+add_library( ${PROJECT_NAME} SHARED )
 
 target_compile_features( ${PROJECT_NAME}
     PRIVATE
@@ -72,10 +61,10 @@ set_target_properties( ${PROJECT_NAME}
         LIBRARY_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/${LIB_DIR}"
 )
 
-add_subdirectory( src )
-
 # Create and include version info file from git
 include( GitVersionInfo )
+
+add_subdirectory( src )
 
 # Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 set( INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
@@ -89,11 +78,7 @@ install( TARGETS ${PROJECT_NAME}
         DESTINATION ${INSTALL_DIR}/${LIB_DIR}
 )
 
-# Install the gdextension file from the build directory
-install(
-    FILES ${BUILD_OUTPUT_DIR}/${GD_EXTENSION_FILE}
-    DESTINATION ${INSTALL_DIR}
-)
+add_subdirectory( templates )
 
 # ccache
 # Turns on ccache if found
