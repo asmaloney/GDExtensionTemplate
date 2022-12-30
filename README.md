@@ -2,7 +2,9 @@
 
 # GDExtensionTemplate
 
-This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org). It is currently set up to work with **Godot 4.0 beta 10** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
+This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org).
+
+It is currently set up to work with **Godot 4.0 beta 10** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
@@ -10,12 +12,25 @@ Since the majority of C++ open source projects use CMake, I wanted to offer an a
 
 ## What This Template Includes
 
-This template project handles a lot of the details to set up a robust project:
+This template project sets up a lot of the build details so you can get started and focus on your code:
 
 - includes [godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule and links it statically to your shared library
 - uses [ccache](https://ccache.dev/) (if available) for faster local rebuilds
 - builds universal library (x86_64 and arm64) on macOS
 - creates `<project>.gdextension` files based on your project name
+- automatically generates a _Version.h_ header file which:
+  - includes a preprocessor macro for conditional compilation
+    ```cpp
+    #if GDEXTENSIONTEMPLATE_VERSION < GDEXTENSIONTEMPLATE_VERSION_CHECK(2, 1, 0)
+      // do stuff
+    #endif
+    ```
+  - includes git information in the version strings (e.g. `GDExtensionTemplate v1.0.1-gf6446f8`)
+  - includes an example which exposes the version string to GDScript so you can call it like this
+    ```py
+    print( GDExtensionTemplate.version() )
+    ```
+  - keeps itself up-to-date when the git branch/tag/HEAD changes
 - provides cmake targets:
   - _install_: install all files with the correct structure to `CMAKE_INSTALL_PREFIX`
   - _clang-format_: runs `clang-format` on all sources
@@ -68,4 +83,4 @@ Note that I will not accept everything, but I welcome discussion. If you are pro
 
 ### 💰 Financial
 
-Given that I'm an independent developer without funding, financial support is always appreciated. If you would like to support the project financially, you can use the [sponsors page](https://github.com/sponsors/asmaloney) for one-off or recurring support. Thank you!
+Given that I'm an independent developer without funding, financial support is always appreciated. If you would like to support the project financially, you can use [GitHub sponsors](https://github.com/sponsors/asmaloney) or [Ko-fi](https://ko-fi.com/asmaloney) for one-off or recurring support. Thank you!
