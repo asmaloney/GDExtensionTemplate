@@ -74,6 +74,9 @@ set_target_properties( ${PROJECT_NAME}
 
 add_subdirectory( src )
 
+# Create and include version info file from git
+include( GitVersionInfo )
+
 # Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 set( INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
 
