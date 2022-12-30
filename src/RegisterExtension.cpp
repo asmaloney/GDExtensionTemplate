@@ -9,8 +9,16 @@
 #include "Example.h"
 #include "GDExtensionTemplate.h"
 
+/// @file
+/// Register our classes with Godot.
+
 namespace
 {
+   /// @brief Called by Godot to let us register our classes with Godot.
+   ///
+   /// @param p_level the level being initialized by Godot
+   ///
+   /// @see GDExtensionInit
    void initializeExtension( godot::ModuleInitializationLevel p_level )
    {
       if ( p_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE )
@@ -27,6 +35,9 @@ namespace
       godot::ClassDB::register_class<GDExtensionTemplate>();
    }
 
+   /// @brief Called by Godot to let us do any cleanup.
+   ///
+   /// @see GDExtensionInit
    void uninitializeExtension( godot::ModuleInitializationLevel p_level )
    {
       if ( p_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE )
@@ -38,7 +49,16 @@ namespace
 
 extern "C"
 {
-   // The name of this function must match the "entry_symbol" in templates/template.gdextension.in
+   /// @brief This is the entry point for the shared library.
+   ///
+   /// @note The name of this function must match the "entry_symbol" in
+   /// templates/template.*.gdextension.in
+   ///
+   /// @param p_interface
+   /// @param p_library
+   /// @param r_initialization
+   ///
+   /// @returns GDExtensionBool
    GDExtensionBool GDE_EXPORT GDExtensionInit( const GDExtensionInterface *p_interface,
                                                GDExtensionClassLibraryPtr p_library,
                                                GDExtensionInitialization *r_initialization )
