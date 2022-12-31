@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: Unlicense
 
-find_program( ${PROJECT_NAME}_CLANG_FORMAT_EXE NAMES clang-format )
+find_program( CLANG_FORMAT_PROGRAM NAMES clang-format )
 
-if ( ${PROJECT_NAME}_CLANG_FORMAT_EXE )
-    message( STATUS "Using clang-format: ${${PROJECT_NAME}_CLANG_FORMAT_EXE}" )
+if ( CLANG_FORMAT_PROGRAM )
+    message( STATUS "Using clang-format: ${CLANG_FORMAT_PROGRAM}" )
 
     get_target_property( _sources ${PROJECT_NAME} SOURCES )
 
@@ -12,7 +12,7 @@ if ( ${PROJECT_NAME}_CLANG_FORMAT_EXE )
     list( FILTER _sources EXCLUDE REGEX ".*/*.gdextension.in" )
 
     add_custom_target( clang-format
-        COMMAND "${${PROJECT_NAME}_CLANG_FORMAT_EXE}" --style=file -i ${_sources}
+        COMMAND "${CLANG_FORMAT_PROGRAM}" --style=file -i ${_sources}
         COMMENT "Running clang-format..."
         COMMAND_EXPAND_LISTS
         VERBATIM
