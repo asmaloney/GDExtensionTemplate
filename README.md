@@ -59,6 +59,16 @@ Optional:
 - change the `.clang-format` config file to fit your C++ style
 - change the LICENSE
 
+## How To Build & Install
+
+Here's an example of how to build & install a release version (run in the parent directory of this repo):
+
+```
+$ cmake -B GDExtensionTemplate-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=GDExtensionTemplate-install GDExtensionTemplate
+$ cmake --build GDExtensionTemplate-build --parallel
+$ cmake --install GDExtensionTemplate-build
+```
+
 ## How To Contribute
 
 These are some of the things you can do to contribute to the project:
