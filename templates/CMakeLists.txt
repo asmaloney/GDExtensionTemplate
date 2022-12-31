@@ -8,6 +8,13 @@ add_custom_target( templates
 
 add_dependencies( ${PROJECT_NAME} templates )
 
+# We shouldn't be relying on CMAKE_BUILD_TYPE (see https://github.com/asmaloney/GDExtensionTemplate/issues/25)
+# But until we fix it here and in godot-cpp, ensure it's one we expect.
+set ( ALLOWED_BUILDS "Debug;Release" )
+if ( NOT "${CMAKE_BUILD_TYPE}" IN_LIST ALLOWED_BUILDS )
+    message( FATAL_ERROR "CMAKE_BUILD_TYPE must be set to Debug or Release" )
+endif()
+
 # Get our gdextension input file name based on build type
 string( TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE )
 set( GD_EXTENSION_FILE_INPUT template.${BUILD_TYPE}.gdextension.in )
@@ -27,6 +34,7 @@ install(
     DESTINATION ${INSTALL_DIR}
 )
 
+unset( ALLOWED_BUILDS )
 unset( BUILD_TYPE )
 unset( GD_EXTENSION_FILE )
 unset( GD_EXTENSION_FILE_INPUT )
