@@ -164,6 +164,8 @@ void Example::_bind_methods()
                                  &Example::test_tarray_arg );
     godot::ClassDB::bind_method( godot::D_METHOD( "test_tarray" ), &Example::test_tarray );
     godot::ClassDB::bind_method( godot::D_METHOD( "test_dictionary" ), &Example::test_dictionary );
+    godot::ClassDB::bind_method( godot::D_METHOD( "test_node_argument" ),
+                                 &Example::test_node_argument );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "def_args", "a", "b" ), &Example::def_args,
                                  DEFVAL( 100 ), DEFVAL( 200 ) );
@@ -366,6 +368,14 @@ godot::Dictionary Example::test_dictionary() const
     dict["foo"] = "bar";
 
     return dict;
+}
+
+Example *Example::test_node_argument( Example *p_node ) const
+{
+    godot::UtilityFunctions::print( "  Test node argument called with ",
+                                    p_node ? godot::String::num( p_node->get_instance_id() )
+                                           : "null" );
+    return p_node;
 }
 
 // Properties.
