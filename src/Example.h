@@ -95,6 +95,7 @@ public:
     void test_tarray_arg( const godot::TypedArray<int64_t> &p_array );
     godot::TypedArray<godot::Vector2> test_tarray() const;
     godot::Dictionary test_dictionary() const;
+    Example *test_node_argument( Example *p_node ) const;
 
     // Property.
     void set_custom_position( const godot::Vector2 &pos );
