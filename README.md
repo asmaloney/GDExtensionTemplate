@@ -4,7 +4,7 @@
 
 This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org).
 
-It is currently set up to work with **Godot 4.0 beta 10** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
+It is currently set up to work with **Godot 4.0 beta 11** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
