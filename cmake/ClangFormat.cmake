@@ -9,7 +9,9 @@ if ( CLANG_FORMAT_PROGRAM )
 
     # Remove some files from the list
     list( FILTER _sources EXCLUDE REGEX ".*/extern/.*" )
+    list( FILTER _sources EXCLUDE REGEX ".*/gen/.*" )
     list( FILTER _sources EXCLUDE REGEX ".*/*.gdextension.in" )
+    list( FILTER _sources EXCLUDE REGEX ".*/Version.h.in" )
 
     add_custom_target( clang-format
         COMMAND "${CLANG_FORMAT_PROGRAM}" --style=file -i ${_sources}

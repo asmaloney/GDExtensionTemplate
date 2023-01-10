@@ -26,12 +26,12 @@ If there are no commits since the last tag, only the tag is shown.
 */
 godot::String GDExtensionTemplate::version()
 {
-   return VersionInfo::VERSION_STR;
+    return VersionInfo::VERSION_STR;
 }
 
 /// Bind our methods so GDScript can access them.
 void GDExtensionTemplate::_bind_methods()
 {
-   godot::ClassDB::bind_static_method( "GDExtensionTemplate", godot::D_METHOD( "version" ),
-                                       &GDExtensionTemplate::version );
+    godot::ClassDB::bind_static_method( "GDExtensionTemplate", godot::D_METHOD( "version" ),
+                                        &GDExtensionTemplate::version );
 }

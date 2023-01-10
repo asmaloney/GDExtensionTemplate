@@ -23,21 +23,21 @@
 #define ${UPPER_PROJECT_NAME}_VERSION_PATCH  ${PROJECT_VERSION_PATCH}
 
 namespace VersionInfo {
-   // Project name and version as a string.
-   // This is generated using the project name from the cmake project macro and the current git commit information.
-   //
-   // It uses the form "<project name> <last tag>-<# commits since last tag>-<short commit hash>".
-   // If there are no commits since the last tag, only the tag is shown.
-   constexpr char VERSION_STR[] = "${PROJECT_NAME} ${GIT_SHORT}";
+    // Project name and version as a string.
+    // This is generated using the project name from the cmake project macro and the current git commit information.
+    //
+    // It uses the form "<project name> <last tag>-<# commits since last tag>-<short commit hash>".
+    // If there are no commits since the last tag, only the tag is shown.
+    constexpr char VERSION_STR[] = "${PROJECT_NAME} ${GIT_SHORT}";
 
-   // The version information as a string.
-   // This is generated using the current git commit information.
-   //
-   // It uses the form "<last tag>-<# commits since last tag>-<short commit hash>".
-   // If there are no commits since the last tag, only the tag is shown.
-   constexpr char VERSION_SHORT_STR[] = "${GIT_SHORT}";
+    // The version information as a string.
+    // This is generated using the current git commit information.
+    //
+    // It uses the form "<last tag>-<# commits since last tag>-<short commit hash>".
+    // If there are no commits since the last tag, only the tag is shown.
+    constexpr char VERSION_SHORT_STR[] = "${GIT_SHORT}";
 
-   // The full git SHA1 hash as a string.
-   // This is generated using the current git commit information.
-   constexpr char GIT_SHA1_STR[] = "${GIT_SHA1}";
+    // The full git SHA1 hash as a string.
+    // This is generated using the current git commit information.
+    constexpr char GIT_SHA1_STR[] = "${GIT_SHA1}";
 }

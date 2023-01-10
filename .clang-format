@@ -1,7 +1,7 @@
 # Options are listed here:
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 ---
-AccessModifierOffset: -3
+AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
@@ -51,8 +51,8 @@ BreakStringLiterals: true
 ColumnLimit: 100
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
-ConstructorInitializerIndentWidth: 3
-ContinuationIndentWidth: 3
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
 Cpp11BracedListStyle: false
 DeriveLineEnding: false
 DerivePointerAlignment: false
@@ -70,7 +70,7 @@ IncludeCategories:
 IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: true
 IndentPPDirectives: None
-IndentWidth: 3
+IndentWidth: 4
 IndentWrappedFunctionNames: true
 InsertBraces: true
 KeepEmptyLinesAtTheStartOfBlocks: true
@@ -107,6 +107,6 @@ SpacesInCStyleCastParentheses: false
 SpacesInParentheses: true
 SpacesInSquareBrackets: false
 Standard: c++17
-TabWidth: 3
+TabWidth: 4
 UseCRLF: false
 UseTab: Never

@@ -5,16 +5,16 @@
 
 namespace godot
 {
-   class ClassDB;
+    class ClassDB;
 };
 
 class GDExtensionTemplate : public godot::Object
 {
-   GDCLASS( GDExtensionTemplate, godot::Object )
+    GDCLASS( GDExtensionTemplate, godot::Object )
 
 public:
-   static godot::String version();
+    static godot::String version();
 
 private:
-   static void _bind_methods();
+    static void _bind_methods();
 };
