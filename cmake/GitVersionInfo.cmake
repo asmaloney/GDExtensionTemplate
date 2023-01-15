@@ -3,7 +3,14 @@
 find_program( GIT_PROGRAM git )
 
 if ( GIT_PROGRAM )
-    message( STATUS "Using git: ${GIT_PROGRAM}" )
+    # get version information
+    execute_process(
+        COMMAND "${GIT_PROGRAM}" --version
+        OUTPUT_VARIABLE GIT_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    message( STATUS "Using git: ${GIT_PROGRAM} (${GIT_VERSION})" )
 
     include( GetGitRevisionDescription )
 
@@ -30,9 +37,10 @@ if ( GIT_PROGRAM )
             ${VERSION_OUTPUT_FILE_DIR}
     )
 
-    message( STATUS "Version Info: ${PROJECT_NAME} ${GIT_SHORT}" )
+    message( STATUS "${PROJECT_NAME} version: ${GIT_SHORT}" )
 
     unset( VERSION_INPUT_FILE )
     unset( VERSION_OUTPUT_FILE )
     unset( VERSION_OUTPUT_FILE_DIR )
+    unset( GIT_VERSION )
 endif()

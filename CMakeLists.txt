@@ -2,23 +2,13 @@
 
 cmake_minimum_required( VERSION 3.22 )
 
-# Build universal lib on macOS
-if ( APPLE )
-    set( CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "" )
-endif()
-
-project( GDExtensionTemplate
-    LANGUAGES
-        CXX
-    VERSION
-        0.1.0
-)
+message( STATUS "Using CMake ${CMAKE_VERSION}" )
 
 # Require out-of-source builds
 file( TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH )
 
 if ( EXISTS "${LOC_PATH}" )
-    message( FATAL_ERROR "[${PROJECT_NAME}] You cannot build in the source directory. Please use a build subdirectory." )
+    message( FATAL_ERROR "You cannot build in the source directory. Please use a build subdirectory." )
 endif()
 
 # Add paths to modules
@@ -29,6 +19,20 @@ set( CMAKE_INTERPROCEDURAL_OPTIMIZATION ON )
 
 # Output compile commands to compile_commands.json (for debugging CMake issues)
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+
+# Build universal lib on macOS
+# Note that CMAKE_OSX_ARCHITECTURES must be set before project().
+if ( APPLE )
+    set( CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "" )
+endif()
+
+# Main project information
+project( GDExtensionTemplate
+    LANGUAGES
+        CXX
+    VERSION
+        0.1.0
+)
 
 # Create our library
 add_library( ${PROJECT_NAME} SHARED )
