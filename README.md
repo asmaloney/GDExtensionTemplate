@@ -10,15 +10,13 @@ Since the majority of C++ open source projects use CMake, I wanted to offer an a
 
 > **Note:** This project is not meant to be a dependency. It is intended to be copied (not forked) and made into your own project. Git itself doesn't provide a nice way to do this (as far as I can tell), but GitHub provides a **Use this template** button (beside where you clone a repo). This will [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) without all the history.
 
-## What This Template Includes
+## Features
 
 This template project sets up a lot of the build details so you can get started and focus on your code:
 
-- includes [godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule and links it statically to your shared library
-- uses [ccache](https://ccache.dev/) (if available) for faster local rebuilds
-- builds universal library (x86_64 and arm64) on macOS
+- includes **[godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule** and links it statically to your shared library
 - creates `<project>.gdextension` files based on your project name
-- automatically generates a _Version.h_ header file which:
+- automatically generates a _**Version.h**_ header file which:
   - includes a preprocessor macro for conditional compilation
     ```cpp
     #if GDEXTENSIONTEMPLATE_VERSION < GDEXTENSIONTEMPLATE_VERSION_CHECK(2, 1, 0)
@@ -31,14 +29,27 @@ This template project sets up a lot of the build details so you can get started 
     print( GDExtensionTemplate.version() )
     ```
   - keeps itself up-to-date when the git branch/tag/HEAD changes
-- provides cmake targets:
+- uses **[ccache](https://ccache.dev/)** (if available) for faster rebuilds
+- builds **universal library** (x86_64 and arm64) on macOS
+- provides **cmake targets**:
   - _install_: install all files with the correct structure to `CMAKE_INSTALL_PREFIX`
   - _clang-format_: runs `clang-format` on all sources
-- includes GitHub actions (CI) for:
+- includes **GitHub workflows** (CI) for:
   - building the extension on **Linux x86_64** (gcc), **macOS universal** (clang), and **Windows x86_64** (MSVC)
   - generating debug & release packages on each commit
   - using `ccache` to improve CI build times when available
   - checking code formatting using `clang-format`
+
+## Prerequisites
+
+To use this locally on your machine, you will need the following:
+
+- **[CMake](https://cmake.org/)** v3.22+
+- C++ Compiler with at least **C++17** support (any recent compiler)
+- (optional) **[ccache](https://ccache.dev/)** for faster rebuilds
+- (optional) **[clang-format](https://clang.llvm.org/docs/ClangFormat.html)** for linting and automatic code formatting (CI uses clang-format version 15)
+
+The GitHub actions (CI) are set up to include all of these tools. To see how to download them on your platform, take a look at the [workflow](.github/workflows/main.yml) file.
 
 ## How To Use
 
@@ -56,7 +67,7 @@ Optional:
 - change the platforms/architectures you want to support:
   - edit the gdextension templates (`templates/*.gdextension.in`)
   - change the GitHub workflows to build the right stuff
-- change the `.clang-format` config file to fit your C++ style
+- change the `.clang-format` config file to fit your C++ style ([option documentation](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
 - change the LICENSE
 
 ## How To Build & Install
