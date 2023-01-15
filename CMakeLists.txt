@@ -27,6 +27,9 @@ list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/" )
 # Turn on link time optimization for everything
 set( CMAKE_INTERPROCEDURAL_OPTIMIZATION ON )
 
+# Output compile commands to compile_commands.json (for debugging CMake issues)
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+
 # Create our library
 add_library( ${PROJECT_NAME} SHARED )
 
