@@ -53,11 +53,23 @@ The GitHub actions (CI) are set up to include all of these tools. To see how to 
 
 ## How To Use
 
+### Setup
+
 To use this for your own project:
 
-- _copy_ this repository (see note above about copy vs. clone/fork) and rename the directory to the name of your extension
+- _copy_ this repository and rename the directory to the name of your extension
+  > GitHub provides a **Use this template** button (beside where you clone a repo). This will [create a copy for you](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) without all the history.
 - in _CMakeLists.txt_, change `GDExtensionTemplate` in the `project` macro to the name of your extension
-- replace the example code in `src` with your own
+  ```cmake
+  project( <your_extension_name_here>
+    LANGUAGES
+        CXX
+    VERSION
+        0.1.0
+  )
+  ```
+  If you also have plain C files in your project, add `C` to the languages.
+- replace the example code in `src` with your own (I would suggest keeping _RegisterExtension.cpp_ and using it to register your classes)
   > **Note:** If you change the entry symbol (`GDExtensionInit`) in _RegisterExtension.cpp_, you will need to update your `templates/*.gdextension.in` files.
 - replace this `README.md` with your own
 
@@ -70,11 +82,11 @@ Optional:
 - change the `.clang-format` config file to fit your C++ style ([option documentation](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
 - change the LICENSE
 
-## How To Build & Install
+### Build & Install
 
-Here's an example of how to build & install a release version (run in the parent directory of this repo):
+Here's an example of how to build & install a release version (use the terminal to run the following commands in the parent directory of this repo):
 
-```
+```sh
 $ cmake -B GDExtensionTemplate-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=GDExtensionTemplate-install GDExtensionTemplate
 $ cmake --build GDExtensionTemplate-build --parallel
 $ cmake --install GDExtensionTemplate-build
