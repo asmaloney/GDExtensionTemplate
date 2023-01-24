@@ -4,7 +4,7 @@
 
 This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org).
 
-It is currently set up to work with **Godot 4.0 beta 13** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
+It is currently set up to work with **Godot 4.0 beta 14** (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for other versions).
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
@@ -80,6 +80,7 @@ Optional:
   - edit the gdextension templates (`templates/*.gdextension.in`)
   - change the GitHub workflows to build the right stuff
 - change the `.clang-format` config file to fit your C++ style ([option documentation](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
+- change the compiler warnings you want to enforce (see [CompilerWarnings.cmake](cmake/CompilerWarnings.cmake))
 - change the LICENSE
 
 ### Build & Install
@@ -91,6 +92,17 @@ $ cmake -B GDExtensionTemplate-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_
 $ cmake --build GDExtensionTemplate-build --parallel
 $ cmake --install GDExtensionTemplate-build
 ```
+
+### Cmake Options
+
+This template defines the following additional CMake options:
+
+| Option                                                                   | Description                                      | Default                                                                                                 |
+| ------------------------------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `CCACHE_PROGRAM`                                                         | Path to `ccache` for faster rebuilds             | This is automatically set **ON** if `ccache` is found. If you do not want to use it, set this to "".    |
+| `CLANG_FORMAT_PROGRAM`                                                   | Path to `clang-format` for code formatting.      | This is automatically set **ON** if `clang-format` is on. If you do not want to use it, set this to "". |
+| `${PROJECT_NAME_UPPERCASE}_WARN_EVERYTHING` (e.g. FOO_WARN_EVERYTHING)   | Turns on all warnings. (Not available for MSVC.) | **OFF** (too noisy, but can be useful sometimes)                                                        |
+| `${PROJECT_NAME_UPPERCASE}_WARNING_AS_ERROR` (e.g. FOO_WARNING_AS_ERROR) | Turns warnings into errors.                      | **ON**                                                                                                  |
 
 ## How To Contribute
 
