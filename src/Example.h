@@ -21,7 +21,7 @@ protected:
 
 public:
     ExampleRef();
-    ~ExampleRef();
+    ~ExampleRef() override;
 
     int get_id();
 };

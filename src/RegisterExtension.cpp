@@ -54,9 +54,9 @@ extern "C"
     /// @note The name of this function must match the "entry_symbol" in
     /// templates/template.*.gdextension.in
     ///
-    /// @param p_interface
-    /// @param p_library
-    /// @param r_initialization
+    /// @param p_interface the interface (need more info)
+    /// @param p_library the library (need more info)
+    /// @param r_initialization the intialization (need more info)
     ///
     /// @returns GDExtensionBool
     GDExtensionBool GDE_EXPORT GDExtensionInit( const GDExtensionInterface *p_interface,

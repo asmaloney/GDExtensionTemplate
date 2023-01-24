@@ -372,9 +372,12 @@ godot::Dictionary Example::test_dictionary() const
 
 Example *Example::test_node_argument( Example *p_node ) const
 {
-    godot::UtilityFunctions::print( "  Test node argument called with ",
-                                    p_node ? godot::String::num( p_node->get_instance_id() )
-                                           : "null" );
+    // This should use godot::String::num_uint64(), but it is currently broken:
+    //  https://github.com/godotengine/godot-cpp/issues/1014
+    godot::UtilityFunctions::print(
+        "  Test node argument called with ",
+        p_node ? godot::String::num_int64( static_cast<int64_t>( p_node->get_instance_id() ) )
+               : "null" );
     return p_node;
 }
 
