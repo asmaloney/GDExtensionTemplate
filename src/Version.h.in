@@ -4,10 +4,6 @@
 
 #include <string_view>
 
-// The version number of this extension. Used for #if comparisons.
-// This is generated using the version set in the CMake project macro.
-#define ${UPPER_PROJECT_NAME}_VERSION  ${UPPER_PROJECT_NAME}_VERSION_CHECK( ${PROJECT_VERSION_MAJOR}, ${PROJECT_VERSION_MINOR}, ${PROJECT_VERSION_PATCH} )
-
 // Creates a version number for use in macro comparisons.
 //
 // Example:
@@ -23,6 +19,10 @@
 #define ${UPPER_PROJECT_NAME}_VERSION_MAJOR  ${PROJECT_VERSION_MAJOR}
 #define ${UPPER_PROJECT_NAME}_VERSION_MINOR  ${PROJECT_VERSION_MINOR}
 #define ${UPPER_PROJECT_NAME}_VERSION_PATCH  ${PROJECT_VERSION_PATCH}
+
+// The version number of this extension. Used for #if comparisons.
+// This is generated using the version set in the CMake project macro.
+#define ${UPPER_PROJECT_NAME}_VERSION  ${UPPER_PROJECT_NAME}_VERSION_CHECK( ${PROJECT_VERSION_MAJOR}, ${PROJECT_VERSION_MINOR}, ${PROJECT_VERSION_PATCH} )
 
 namespace VersionInfo {
     // Project name and version as a string.
