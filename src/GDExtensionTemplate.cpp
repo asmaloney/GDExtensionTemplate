@@ -8,11 +8,6 @@
 /// @file
 /// GDExtensionTemplate example implementation.
 
-// Example of how to use GDEXTENSIONTEMPLATE_VERSION_CHECK() for version checking
-#if GDEXTENSIONTEMPLATE_VERSION > GDEXTENSIONTEMPLATE_VERSION_CHECK( 2, 1, 0 )
-constexpr int DECLARE_SOMETHING = 42;
-#endif
-
 /*!
 @brief Get the version string for this extension.
 
