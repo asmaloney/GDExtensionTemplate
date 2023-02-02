@@ -70,6 +70,12 @@ public:
         CONSTANT_WITHOUT_ENUM = 314,
     };
 
+    enum Flags
+    {
+        FLAG_ONE = 1,
+        FLAG_TWO = 2,
+    };
+
     Example();
     ~Example() override;
 
@@ -96,6 +102,10 @@ public:
     godot::TypedArray<godot::Vector2> test_tarray() const;
     godot::Dictionary test_dictionary() const;
     Example *test_node_argument( Example *p_node ) const;
+    godot::String test_string_ops() const;
+    int test_vector_ops() const;
+
+    godot::BitField<Flags> test_bitfield( godot::BitField<Flags> flags );
 
     // Property.
     void set_custom_position( const godot::Vector2 &pos );
@@ -110,7 +120,14 @@ public:
     virtual bool _has_point( const godot::Vector2 &point ) const override;
 };
 
-VARIANT_ENUM_CAST( Example, Constants )
+VARIANT_ENUM_CAST( Example::Constants );
+VARIANT_BITFIELD_CAST( Example::Flags );
+
+enum EnumWithoutClass
+{
+    OUTSIDE_OF_CLASS = 512
+};
+VARIANT_ENUM_CAST( EnumWithoutClass );
 
 class ExampleVirtual : public godot::Object
 {

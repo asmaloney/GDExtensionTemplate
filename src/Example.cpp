@@ -166,6 +166,11 @@ void Example::_bind_methods()
     godot::ClassDB::bind_method( godot::D_METHOD( "test_dictionary" ), &Example::test_dictionary );
     godot::ClassDB::bind_method( godot::D_METHOD( "test_node_argument" ),
                                  &Example::test_node_argument );
+    godot::ClassDB::bind_method( godot::D_METHOD( "test_string_ops" ), &Example::test_string_ops );
+    godot::ClassDB::bind_method( godot::D_METHOD( "test_vector_ops" ), &Example::test_vector_ops );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "test_bitfield", "flags" ),
+                                 &Example::test_bitfield );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "def_args", "a", "b" ), &Example::def_args,
                                  DEFVAL( 100 ), DEFVAL( 200 ) );
@@ -225,7 +230,11 @@ void Example::_bind_methods()
     BIND_ENUM_CONSTANT( FIRST )
     BIND_ENUM_CONSTANT( ANSWER_TO_EVERYTHING )
 
-    BIND_CONSTANT( CONSTANT_WITHOUT_ENUM )
+    BIND_BITFIELD_FLAG( FLAG_ONE );
+    BIND_BITFIELD_FLAG( FLAG_TWO );
+
+    BIND_CONSTANT( CONSTANT_WITHOUT_ENUM );
+    BIND_ENUM_CONSTANT( OUTSIDE_OF_CLASS );
 }
 
 Example::Example()
@@ -379,6 +388,40 @@ Example *Example::test_node_argument( Example *p_node ) const
         p_node ? godot::String::num_int64( static_cast<int64_t>( p_node->get_instance_id() ) )
                : "null" );
     return p_node;
+}
+
+godot::String Example::test_string_ops() const
+{
+    godot::String s = godot::String( "A" );
+    s += "B";
+    s += "C";
+    s += char32_t( 0x010E );
+    s = s + "E";
+
+    return s;
+}
+
+int Example::test_vector_ops() const
+{
+    godot::PackedInt32Array arr;
+    arr.push_back( 10 );
+    arr.push_back( 20 );
+    arr.push_back( 30 );
+    arr.push_back( 45 );
+
+    int ret = 0;
+    for ( const int32_t &E : arr )
+    {
+        ret += E;
+    }
+
+    return ret;
+}
+
+godot::BitField<Example::Flags> Example::test_bitfield( godot::BitField<Flags> flags )
+{
+    godot::UtilityFunctions::print( "  Got BitField: ", godot::String::num_int64( flags ) );
+    return flags;
 }
 
 // Properties.
