@@ -7,10 +7,15 @@
 
 #include "Example.h"
 
+namespace
+{
+    constexpr int MAGIC_NUMBER = 42;
+}
+
 int ExampleRef::instance_count = 0;
 int ExampleRef::last_id = 0;
 
-int ExampleRef::get_id()
+int ExampleRef::get_id() const
 {
     return id;
 }
@@ -48,7 +53,7 @@ void Example::test_static2()
     godot::UtilityFunctions::print( "  void static" );
 }
 
-int Example::def_args( int p_a, int p_b )
+int Example::def_args( int p_a, int p_b ) const
 {
     return p_a + p_b;
 }
@@ -121,7 +126,7 @@ void Example::_get_property_list( godot::List<godot::PropertyInfo> *p_list ) con
 bool Example::_property_can_revert( const godot::StringName &p_name ) const
 {
     if ( p_name == godot::StringName( "property_from_list" ) &&
-         property_from_list != godot::Vector3( 42, 42, 42 ) )
+         property_from_list != godot::Vector3( MAGIC_NUMBER, MAGIC_NUMBER, MAGIC_NUMBER ) )
     {
         return true;
     }
@@ -134,7 +139,7 @@ bool Example::_property_get_revert( const godot::StringName &p_name,
 {
     if ( p_name == godot::StringName( "property_from_list" ) )
     {
-        r_property = godot::Vector3( 42, 42, 42 );
+        r_property = godot::Vector3( MAGIC_NUMBER, MAGIC_NUMBER, MAGIC_NUMBER );
 
         return true;
     }
@@ -323,7 +328,7 @@ int Example::varargs_func_nv( const godot::Variant ** /*args*/, GDExtensionInt a
                                     godot::String::num( static_cast<double>( arg_count ) ),
                                     " arguments" );
 
-    return 42;
+    return MAGIC_NUMBER;
 }
 
 void Example::varargs_func_void( const godot::Variant ** /*args*/, GDExtensionInt arg_count,
@@ -385,8 +390,9 @@ Example *Example::test_node_argument( Example *p_node ) const
     //  https://github.com/godotengine/godot-cpp/issues/1014
     godot::UtilityFunctions::print(
         "  Test node argument called with ",
-        p_node ? godot::String::num_int64( static_cast<int64_t>( p_node->get_instance_id() ) )
-               : "null" );
+        ( p_node != nullptr )
+            ? godot::String::num_int64( static_cast<int64_t>( p_node->get_instance_id() ) )
+            : "null" );
     return p_node;
 }
 
@@ -443,7 +449,7 @@ godot::Vector4 Example::get_v4() const
 // Virtual function override.
 bool Example::_has_point( const godot::Vector2 &point ) const
 {
-    godot::Label *label = godot::Control::get_node<godot::Label>( "Label" );
+    auto *label = godot::Control::get_node<godot::Label>( "Label" );
 
     label->set_text( "Got point: " + godot::Variant( point ).stringify() );
 

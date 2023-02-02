@@ -23,7 +23,7 @@ public:
     ExampleRef();
     ~ExampleRef() override;
 
-    int get_id();
+    int get_id() const;
 };
 
 class ExampleMin : public godot::Control
@@ -95,7 +95,7 @@ public:
                             GDExtensionCallError &error );
 
     void emit_custom_signal( const godot::String &name, int value );
-    int def_args( int p_a = 100, int p_b = 200 );
+    int def_args( int p_a = 100, int p_b = 200 ) const;
 
     godot::Array test_array() const;
     void test_tarray_arg( const godot::TypedArray<int64_t> &p_array );
