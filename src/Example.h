@@ -10,20 +10,20 @@ class ExampleRef : public godot::RefCounted
 {
     GDCLASS( ExampleRef, RefCounted )
 
-private:
-    static int instance_count;
-    static int last_id;
-
-    int id;
-
-protected:
-    static void _bind_methods();
-
 public:
     ExampleRef();
     ~ExampleRef() override;
 
-    int get_id() const;
+    int getID() const;
+
+protected:
+    static void _bind_methods();
+
+private:
+    static int sInstanceCount;
+    static int sLastID;
+
+    int mID;
 };
 
 class ExampleMin : public godot::Control
@@ -31,31 +31,12 @@ class ExampleMin : public godot::Control
     GDCLASS( ExampleMin, Control )
 
 protected:
-    static void _bind_methods()
-    {
-    }
+    static void _bind_methods();
 };
 
 class Example : public godot::Control
 {
     GDCLASS( Example, godot::Control )
-
-protected:
-    static void _bind_methods();
-
-    void _notification( int p_what );
-    bool _set( const godot::StringName &p_name, const godot::Variant &p_value );
-    bool _get( const godot::StringName &p_name, godot::Variant &r_ret ) const;
-    void _get_property_list( godot::List<godot::PropertyInfo> *p_list ) const;
-    bool _property_can_revert( const godot::StringName &p_name ) const;
-    bool _property_get_revert( const godot::StringName &p_name, godot::Variant &r_property ) const;
-
-    godot::String _to_string() const;
-
-private:
-    godot::Vector2 custom_position;
-    godot::Vector3 property_from_list;
-    godot::Vector2 dprop[3];
 
 public:
     // Constants.
@@ -80,44 +61,61 @@ public:
     ~Example() override;
 
     // Functions.
-    void simple_func();
-    void simple_const_func() const;
-    godot::String return_something( const godot::String &base );
-    godot::Viewport *return_something_const() const;
-    godot::Ref<ExampleRef> return_empty_ref() const;
-    ExampleRef *return_extended_ref() const;
-    godot::Ref<ExampleRef> extended_ref_checks( godot::Ref<ExampleRef> p_ref ) const;
-    godot::Variant varargs_func( const godot::Variant **args, GDExtensionInt arg_count,
-                                 GDExtensionCallError &error );
-    int varargs_func_nv( const godot::Variant **args, GDExtensionInt arg_count,
-                         GDExtensionCallError &error );
-    void varargs_func_void( const godot::Variant **args, GDExtensionInt arg_count,
-                            GDExtensionCallError &error );
+    void simpleFunc();
+    void simpleConstFunc() const;
+    godot::String returnSomething( const godot::String &inBase );
+    godot::Viewport *returnSomethingConst() const;
+    godot::Ref<ExampleRef> returnEmptyRef() const;
+    ExampleRef *returnExtendedRef() const;
+    godot::Ref<ExampleRef> extendedRefChecks( godot::Ref<ExampleRef> inRef ) const;
+    godot::Variant varargsFunc( const godot::Variant **inArgs, GDExtensionInt inArgCount,
+                                GDExtensionCallError &outError );
+    int varargsFuncNonVoidReturn( const godot::Variant **inArgs, GDExtensionInt inArgCount,
+                                  GDExtensionCallError &outError );
+    void varargsFuncVoidReturn( const godot::Variant **inArgs, GDExtensionInt inArgCount,
+                                GDExtensionCallError &outError );
 
-    void emit_custom_signal( const godot::String &name, int value );
-    int def_args( int p_a = 100, int p_b = 200 ) const;
+    void emitCustomSignal( const godot::String &inName, int inValue );
+    int defArgs( int inA = 100, int inB = 200 ) const;
 
-    godot::Array test_array() const;
-    void test_tarray_arg( const godot::TypedArray<int64_t> &p_array );
-    godot::TypedArray<godot::Vector2> test_tarray() const;
-    godot::Dictionary test_dictionary() const;
-    Example *test_node_argument( Example *p_node ) const;
-    godot::String test_string_ops() const;
-    int test_vector_ops() const;
+    godot::Array testArray() const;
+    void testTypedArrayArg( const godot::TypedArray<int64_t> &inArray );
+    godot::TypedArray<godot::Vector2> testTypedArray() const;
+    godot::Dictionary testDictionary() const;
+    Example *testNodeArgument( Example *inNode ) const;
+    godot::String testStringOps() const;
+    int testVectorOps() const;
 
-    godot::BitField<Flags> test_bitfield( godot::BitField<Flags> flags );
+    godot::BitField<Flags> testBitfield( godot::BitField<Flags> inFlags );
 
     // Property.
-    void set_custom_position( const godot::Vector2 &pos );
-    godot::Vector2 get_custom_position() const;
-    godot::Vector4 get_v4() const;
+    void setCustomPosition( const godot::Vector2 &inPos );
+    godot::Vector2 getCustomPosition() const;
+    godot::Vector4 getV4() const;
 
     // Static method.
-    static int test_static( int p_a, int p_b );
-    static void test_static2();
+    static int testStatic( int inA, int inB );
+    static void testStatic2();
 
     // Virtual function override (no need to bind manually).
-    virtual bool _has_point( const godot::Vector2 &point ) const override;
+    virtual bool _has_point( const godot::Vector2 &inPoint ) const override;
+
+protected:
+    static void _bind_methods();
+
+    void _notification( int inWhat );
+    bool _set( const godot::StringName &inName, const godot::Variant &inValue );
+    bool _get( const godot::StringName &inName, godot::Variant &outReturn ) const;
+    void _get_property_list( godot::List<godot::PropertyInfo> *outList ) const;
+    bool _property_can_revert( const godot::StringName &inName ) const;
+    bool _property_get_revert( const godot::StringName &inName, godot::Variant &outProperty ) const;
+
+    godot::String _to_string() const;
+
+private:
+    godot::Vector2 mCustomPosition;
+    godot::Vector3 mPropertyFromList;
+    godot::Vector2 mDProp[3];
 };
 
 VARIANT_ENUM_CAST( Example::Constants );
@@ -134,9 +132,7 @@ class ExampleVirtual : public godot::Object
     GDCLASS( ExampleVirtual, godot::Object )
 
 protected:
-    static void _bind_methods()
-    {
-    }
+    static void _bind_methods();
 };
 
 class ExampleAbstract : public godot::Object
@@ -144,7 +140,5 @@ class ExampleAbstract : public godot::Object
     GDCLASS( ExampleAbstract, godot::Object )
 
 protected:
-    static void _bind_methods()
-    {
-    }
+    static void _bind_methods();
 };
