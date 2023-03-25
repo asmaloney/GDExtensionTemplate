@@ -63,10 +63,16 @@ set_target_properties( ${PROJECT_NAME}
     PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN true
-        DEBUG_POSTFIX "-d"
         RUNTIME_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/${LIB_DIR}"
         LIBRARY_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/${LIB_DIR}"
 )
+
+if( NOT DEFINED CMAKE_DEBUG_POSTFIX )
+    set_target_properties( ${PROJECT_NAME}
+        PROPERTIES
+            DEBUG_POSTFIX "-d"
+    )
+endif()
 
 # Warnings
 include( CompilerWarnings )
