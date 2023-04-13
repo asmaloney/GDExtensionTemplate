@@ -71,6 +71,7 @@ To use this for your own project:
   If you also have plain C files in your project, add `C` to the languages.
 - replace the example code in `src` with your own (I would suggest keeping _RegisterExtension.cpp_ and using it to register your classes)
   > **Note:** If you change the entry symbol (`GDExtensionInit`) in _RegisterExtension.cpp_, you will need to update your `templates/*.gdextension.in` files.
+- replace `CHANGELOG.md` with your own (I would encourage adhering to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the use of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) )
 - replace this `README.md` with your own
 
 Optional:
