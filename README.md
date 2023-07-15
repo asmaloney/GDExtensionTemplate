@@ -125,7 +125,7 @@ The key thing is that the version of *godot-cpp* must match the version of Godot
 
 Once you know the correct version of godot-cpp, change the submodule (*extern/godot-cpp*) in your extension to point at that version.
 
-Updating the submodule and making any necessary changes to your code due to changes in the API are the ony things you need to pin to a specific version of Godot.
+Updating the submodule and making any necessary changes to your code due to changes in the API are the only things you need to pin to a specific version of Godot.
 
 ## How To Contribute
 
