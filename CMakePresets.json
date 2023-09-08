@@ -54,9 +54,9 @@
       }
     },
     {
-      "name": "osx-debug",
-      "displayName": "64bit Debug osx",
-      "description": "Osx only!",
+      "name": "macOS-debug",
+      "displayName": "64bit Debug macOS",
+      "description": "macOS only!",
       "generator": "Ninja",
       "condition": {
         "type": "equals",
@@ -80,8 +80,8 @@
       "configurePreset": "default-windows"
     },
     {
-      "name": "osx-debug",
-      "configurePreset": "osx-debug"
+      "name": "macOS-debug",
+      "configurePreset": "macOS-debug"
     }
   ]
 }

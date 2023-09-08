@@ -23,7 +23,7 @@
             "visualizerFile": "${workspaceFolder}/.vscode/godot.natvis"
         },
         {
-            "name": "macOS Launch",
+            "name": "macOS/Linux Launch",
             "type": "lldb",
             "request": "launch",
             "program": "${command:cmake.launchTargetPath}",
