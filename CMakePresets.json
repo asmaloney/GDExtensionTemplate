@@ -12,13 +12,15 @@
       "description": "Default preset that are inherited by all",
       "generator": "Ninja",
       "hidden": true,
-      "binaryDir": "${sourceDir}/../build_MyGodotProject"
+      "environment": {
+        "PROJECT_NAME": "MyGodotExtention"
+      }
     },
     {
-      "name": "default-windows",
-      "displayName": "64bit Windows",
-      "description": "Windows only!",
+      "name": "windows-debug",
+      "displayName": "64bit Windows Debug",
       "inherits": "default",
+      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Windows-AMD64",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -34,14 +36,23 @@
       },
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl.exe",
-        "CMAKE_CXX_COMPILER": "cl.exe"
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "64bit Windows Release",
+      "inherits": "windows-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
       "name": "linux-debug",
-      "displayName": "64bit Debug Linux",
-      "description": "Linux only!",
-      "generator": "Ninja",
+      "displayName": "64bit Linux Debug",
+      "inherits": "default",
+      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Linux-x86_64",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -54,10 +65,18 @@
       }
     },
     {
+      "name": "linux-release",
+      "displayName": "64bit Linux Release",
+      "inherits": "linux-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
       "name": "macOS-debug",
-      "displayName": "64bit Debug macOS",
-      "description": "macOS only!",
-      "generator": "Ninja",
+      "displayName": "64bit macOS Debug",
+      "inherits": "default",
+      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Darwin-Universal",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -68,20 +87,14 @@
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_BUILD_TYPE": "Debug"
       }
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "linux-debug",
-      "configurePreset": "linux-debug"
     },
     {
-      "name": "default-windows",
-      "configurePreset": "default-windows"
-    },
-    {
-      "name": "macOS-debug",
-      "configurePreset": "macOS-debug"
+      "name": "macOS-release",
+      "displayName": "64bit macOS Release",
+      "inherits": "macOS-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     }
   ]
 }
