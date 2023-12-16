@@ -4,7 +4,7 @@
 
 This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions. The goal is to lower the barrier to entry to building a GDExtension using [CMake](https://cmake.org).
 
-It is currently set up to work with the **[Godot 4.1](https://github.com/godotengine/godot/releases/tag/4.1-stable)** release (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for previous versions).
+It is currently set up to work with the **[Godot 4.2](https://github.com/godotengine/godot/releases/tag/4.2-stable)** release (see [tags](https://github.com/asmaloney/GDExtensionTemplate/tags) for previous versions).
 
 Since the majority of C++ open source projects use CMake, I wanted to offer an alternative to the _scons_ system for building Godot extensions (if you use _scons_, check out Nathan Franke's [gdextension](https://github.com/nathanfranke/gdextension) template or Patrick's [GDExtensionSummator](https://github.com/paddy-exe/GDExtensionSummator) template).
 
@@ -121,9 +121,9 @@ This template defines the following additional CMake options:
 
 Once your project is up and running you might want to keep up with newer versions of Godot & godot-cpp.
 
-The key thing is that the version of *godot-cpp* must match the version of Godot you are using (see the [godot-cpp Versioning section](https://github.com/godotengine/godot-cpp#versioning)). So if you want to use *Godot 4.0 stable*, then you need to match that with the [correct tag in godot-cpp](https://github.com/godotengine/godot-cpp/tags).
+The key thing is that the version of _godot-cpp_ must match the version of Godot you are using (see the [godot-cpp Versioning section](https://github.com/godotengine/godot-cpp#versioning)). So if you want to use _Godot 4.0 stable_, then you need to match that with the [correct tag in godot-cpp](https://github.com/godotengine/godot-cpp/tags).
 
-Once you know the correct version of godot-cpp, change the submodule (*extern/godot-cpp*) in your extension to point at that version.
+Once you know the correct version of godot-cpp, change the submodule (_extern/godot-cpp_) in your extension to point at that version.
 
 Updating the submodule and making any necessary changes to your code due to changes in the API are the only things you need to pin to a specific version of Godot.
 
