@@ -14,6 +14,7 @@ class GDExtensionTemplate : public godot::Object
 
 public:
     static godot::String version();
+    static godot::String godotCPPVersion();
 
 private:
     static void _bind_methods();
