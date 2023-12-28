@@ -74,6 +74,14 @@ if( NOT DEFINED CMAKE_DEBUG_POSTFIX )
     )
 endif()
 
+# Copy over additional files from the support_files directory
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${CMAKE_SOURCE_DIR}/support_files"
+            ${BUILD_OUTPUT_DIR}
+)
+
 # Warnings
 include( CompilerWarnings )
 
@@ -82,7 +90,7 @@ include( GitVersionInfo )
 
 add_subdirectory( src )
 
-# Install library and extension file in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
+# Install library, extension file, and support files in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 set( INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
 
 message( STATUS "Install directory: ${INSTALL_DIR}")
@@ -92,6 +100,12 @@ install( TARGETS ${PROJECT_NAME}
         DESTINATION ${INSTALL_DIR}/${LIB_DIR}
     RUNTIME
         DESTINATION ${INSTALL_DIR}/${LIB_DIR}
+)
+
+# Copy over support files
+install( DIRECTORY "${CMAKE_SOURCE_DIR}/support_files/"
+    DESTINATION ${INSTALL_DIR}
+    PATTERN ".*" EXCLUDE
 )
 
 add_subdirectory( templates )

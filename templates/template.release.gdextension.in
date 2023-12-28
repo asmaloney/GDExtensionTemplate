@@ -1,10 +1,11 @@
 [configuration]
-
 entry_symbol = "GDExtensionInit"
 compatibility_minimum = 4.1
 
-[libraries]
+[icons]
+Example = "icons/Example.svg"
 
+[libraries]
 linux.release.x86_64 = "lib/Linux-x86_64/lib${PROJECT_NAME}.so"
 macos.release = "lib/Darwin-universal/lib${PROJECT_NAME}.dylib"
 windows.release.x86_64 = "lib/Windows-AMD64/${LIB_PREFIX}${PROJECT_NAME}.dll"
