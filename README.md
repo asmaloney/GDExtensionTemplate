@@ -16,6 +16,8 @@ This template project sets up a lot of the build details so you can get started 
 
 - includes **[godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule** and links it statically to your shared library
 - creates `<project>.gdextension` files based on your project name
+- copies over any support files from the `support_files` directory into your extension directory
+- includes example of adding custom icons to your classes/nodes ([see below](#custom-node-icons))
 - automatically generates a _**Version.h**_ header file which:
   - includes a preprocessor macro for conditional compilation
     ```cpp
@@ -73,6 +75,7 @@ To use this for your own project:
   > **Note:** If you change the entry symbol (`GDExtensionInit`) in _RegisterExtension.cpp_, you will need to update your `templates/*.gdextension.in` files.
 - replace `CHANGELOG.md` with your own (I would encourage adhering to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and the use of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) )
 - replace this `README.md` with your own
+- replace custom node icon ([see below](#custom-node-icons))
 
 Optional:
 
@@ -83,6 +86,22 @@ Optional:
 - change the `.clang-format` config file to fit your C++ style ([option documentation](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
 - change the compiler warnings you want to enforce (see [CompilerWarnings.cmake](cmake/CompilerWarnings.cmake))
 - change the LICENSE
+
+### Custom Node Icons
+
+I have included a custom icon for the `Example` node (icon is [CC0](https://creativecommons.org/public-domain/cc0/) from [SVGRepo](https://www.svgrepo.com/svg/207485/gardening-autumn)), so you will want to remove or modify it for your own classes/nodes.
+
+The icon itself is in `support_files/icons` it is referenced in the `templates/*.gdextension.in` files.
+
+To add an icon for your custom node:
+
+- add the icon file to `support_files/icons` and name it after your node (e.g. `MyNode.svg`)
+- in each of the `templates/*.gdextension.in` files add an entry for your node in the `[icons]` section:
+  ```
+  MyNode = "icons/MyNode.svg"
+  ```
+
+Everything in the `support_files` directory is copied into your extension, so if you don't want to use icons, remove that directory and remove the `[icons]` section from the `templates/*.gdextension.in` files.
 
 ### Build & Install
 
