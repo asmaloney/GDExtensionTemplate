@@ -81,7 +81,7 @@ jobs:
 
       - name: Upload artifact (Debug)
         if: matrix.build_type == 'Debug'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}-Debug
           path: |
@@ -89,7 +89,7 @@ jobs:
 
       - name: Upload artifact (Release)
         if: matrix.build_type == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}-Release
           path: |
